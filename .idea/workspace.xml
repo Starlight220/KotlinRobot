@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="543b1238-80fa-416f-913c-882f765c9dcb" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="KotlinRobot" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="KotlinRobot" type="f1a62948:ProjectNode" />
+                <item name="Source Sets" type="e897c970:GradleViewContributor$SourceSetsNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="KotlinRobot" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+        <option value="Kotlin Object" />
+        <option value="Kotlin File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ZoE5eKgBEX0a6SJHUnIAopvMas" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.5586207" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="frc.robot.commands.drive" />
+      <recent name="utils" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="frc.robot.commands.transport" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Yotam\Documents\Programming\FRC 6738 Programming\KotlinRobot\src\main\java\frc\robot\subsystems" />
+      <recent name="C:\Users\Yotam\Documents\Programming\FRC 6738 Programming\KotlinRobot\src\main\java\utils" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="543b1238-80fa-416f-913c-882f765c9dcb" name="Default Changelist" comment="" />
+      <created>1585496864349</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585496864349</updated>
+      <workItem from="1585496868111" duration="1299000" />
+      <workItem from="1585498208467" duration="246000" />
+      <workItem from="1585503429522" duration="7774000" />
+      <workItem from="1585552342895" duration="21556000" />
+      <workItem from="1585587917577" duration="2874000" />
+      <workItem from="1585595438829" duration="5292000" />
+      <workItem from="1585678500469" duration="1171000" />
+      <workItem from="1585681802315" duration="301000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="560" y="148" key="#com.intellij.ide.util.MemberChooser" timestamp="1585569916679">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="560" y="148" key="#com.intellij.ide.util.MemberChooser/0.0.1536.864@0.0.1536.864" timestamp="1585569916679" />
+    <state x="499" y="216" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1585679089327">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="499" y="216" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1585679089327" />
+    <state x="499" y="187" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1585498036578">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="499" y="187" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.1536.864@0.0.1536.864" timestamp="1585498036578" />
+    <state x="548" y="85" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1585679092449">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="548" y="85" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1585679092449" />
+    <state x="548" y="85" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1585557938296" />
+    <state x="249" y="7" key="SettingsEditor" timestamp="1585498069599">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="249" y="7" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1585498069599" />
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1585681801809">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1585681801809" />
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1585595449552" />
+    <state x="510" y="75" key="refactoring.ChangeSignatureDialog" timestamp="1585553101801">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="510" y="75" key="refactoring.ChangeSignatureDialog/0.0.1536.864@0.0.1536.864" timestamp="1585553101801" />
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1585569400158">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1585569400158" />
+  </component>
+</project>
