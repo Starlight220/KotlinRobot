@@ -14,6 +14,7 @@ import frc.robot.commands.goBackAndShoot
 import frc.robot.commands.intake.IntakeDrive
 import frc.robot.commands.transport.TransportDrive
 import frc.robot.subsystems.*
+import sim.Sim_Wrapper
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -103,5 +104,9 @@ object Robot : TimedRobot() {
      * This function is called periodically during test mode.
      */
     override fun testPeriodic() {}
+
+    override fun simulationPeriodic() {
+        Sim_Wrapper.runPeriodic()
+    }
 }
 
