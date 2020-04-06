@@ -37,4 +37,8 @@ object Transporter : SubsystemBase(){
         towerSpeed = 0.0
         flickerSpeed = 0.0
     }
+
+    operator fun invoke(){
+
+    }
 }

@@ -30,14 +30,14 @@ object Robot : TimedRobot() {
      * used for any initialization code.
      */
     override fun robotInit() {
-        Drivetrain
-        Intake
-        Limelight
-        Shooter
-        Transporter
-        Climber
+        Drivetrain()
+        Intake()
+        Limelight()
+        Shooter()
+        Transporter()
+        Climber()
 
-        autoCommand = initAutoCommand()
+//        autoCommand = initAutoCommand()
     }
 
     private fun initDefaultCommands() {
@@ -80,7 +80,7 @@ object Robot : TimedRobot() {
      */
     override fun autonomousInit() {
         Drivetrain.initOdometery()
-        autoCommand.schedule()
+//        autoCommand.schedule()
     }
 
     /**

@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.controller.PIDController
 import edu.wpi.first.wpilibj2.command.CommandBase
 import frc.robot.subsystems.Drivetrain
 import frc.robot.subsystems.driveAngleConfig
-import utils.PIDConfig
 import java.lang.StrictMath.abs
 
 class KeepAngle(

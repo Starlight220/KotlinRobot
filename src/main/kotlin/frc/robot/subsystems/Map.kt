@@ -1,19 +1,22 @@
 package frc.robot.subsystems
+import lib.ports.CAN
+import lib.ports.PCM
+import lib.ports.navX
 
+val rightMasterID = CAN[10]
+val rightSlaveID = CAN[11]
+val leftMasterID = CAN[12]
+val leftSlaveID = CAN[13]
+val gyroPort = navX.SPI
 
-const val rightMasterID = 10
-const val rightSlaveID = 11
-const val leftMasterID = 12
-const val leftSlaveID = 13
+val flywheelID = CAN[20]
 
-const val flywheelID = 20
+val intakeID = CAN[30]
+val intakePistonClosed = PCM[0]
+val intakePistonOpen = PCM[1]
 
-const val intakeID = 30
-const val intakePistonClosed = 0
-const val intakePistonOpen = 1
+val climbMasterID = CAN[40]
+val climbSlaveID = CAN[41]
 
-const val climbMasterID = 40
-const val climbSlaveID = 41
-
-const val flickerID = 50
-const val towerID = 50
+val flickerID = CAN[50]
+val towerID = CAN[50]

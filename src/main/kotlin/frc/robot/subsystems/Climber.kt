@@ -1,7 +1,7 @@
 package frc.robot.subsystems
 import com.ctre.phoenix.motorcontrol.ControlMode
 import edu.wpi.first.wpilibj2.command.SubsystemBase
-import utils.plus
+import lib.plus
 import com.ctre.phoenix.motorcontrol.can.TalonSRX as Talon
 import com.ctre.phoenix.motorcontrol.can.VictorSPX as Victor
 
@@ -22,5 +22,9 @@ object Climber : SubsystemBase(){
 
     fun resetEncoder(){
         climbMaster.selectedSensorPosition = 0
+    }
+
+    operator fun invoke(){
+
     }
 }

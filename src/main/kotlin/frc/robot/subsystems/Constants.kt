@@ -1,7 +1,7 @@
 package frc.robot.subsystems
 
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward
-import utils.PIDConfig
+import lib.PIDConfig
 
 typealias DoublePair = Pair<Double, Double>
 

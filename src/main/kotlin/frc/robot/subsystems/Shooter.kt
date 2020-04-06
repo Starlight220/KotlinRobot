@@ -1,10 +1,11 @@
 package frc.robot.subsystems
-import com.revrobotics.CANEncoder as Encoder
 import com.revrobotics.CANPIDController
 import com.revrobotics.CANSparkMaxLowLevel.MotorType
 import com.revrobotics.ControlType
 import edu.wpi.first.wpilibj2.command.SubsystemBase
-import utils.*
+import lib.not
+import lib.plus
+import com.revrobotics.CANEncoder as Encoder
 import com.revrobotics.CANSparkMax as SparkMax
 
 object Shooter : SubsystemBase(){
@@ -26,5 +27,9 @@ object Shooter : SubsystemBase(){
 
     fun isOnVelocity() : Boolean {
         return (lastVelRef - velocity) < velocityTolerance
+    }
+
+    operator fun invoke(){
+        flywheel.burnFlash()
     }
 }
