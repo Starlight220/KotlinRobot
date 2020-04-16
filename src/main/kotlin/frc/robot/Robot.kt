@@ -10,10 +10,12 @@ import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
 import edu.wpi.first.wpilibj2.command.RunCommand
+import edu.wpi.first.wpilibj2.command.Subsystem
 import frc.robot.commands.goBackAndShoot
 import frc.robot.commands.intake.IntakeDrive
 import frc.robot.commands.transport.TransportDrive
 import frc.robot.subsystems.*
+import lib.command.Invokable
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,19 +26,23 @@ import frc.robot.subsystems.*
  */
 object Robot : TimedRobot() {
     private lateinit var autoCommand : Command
+    lateinit var subsystems : Set<Subsystem>
+
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     override fun robotInit() {
-        Drivetrain()
-        Intake()
-        Limelight()
-        Shooter()
-        Transporter()
-        Climber()
-
+        subsystems = setOf(
+            Drivetrain,
+            Intake,
+            Shooter,
+            Transporter,
+            Climber
+        )
+        Limelight
+        subsystems.forEach { if(it is Invokable) it() }
 //        autoCommand = initAutoCommand()
     }
 

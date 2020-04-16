@@ -3,6 +3,8 @@ package lib
 import com.kauailabs.navx.frc.AHRS
 import com.revrobotics.CANPIDController
 import edu.wpi.first.wpilibj.controller.PIDController
+import lib.can.not
+import lib.pipeline.Bounds
 
 
 data class PIDConfig(
@@ -38,18 +40,6 @@ data class PIDConfig(
 //
 //}
 val motorInput = Bounds(-1.0, 1.0)
-
-inline class Bounds(val range: ClosedFloatingPointRange<Double>){
-    constructor(min : Double, max : Double) : this(min..max)
-
-    fun apply(value : Double): Double = when(value){
-            in range -> value
-            in Double.MIN_VALUE..range.start -> range.start
-            in range.endInclusive..Double.MAX_VALUE -> range.endInclusive
-            else -> value
-    }
-
-}
 
 /**
  * Resets the gyro angle.

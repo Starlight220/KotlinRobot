@@ -1,15 +1,19 @@
-package lib
+package lib.can
 
-import com.ctre.phoenix.motorcontrol.can.VictorSPX as Victor
+import com.ctre.phoenix.motorcontrol.InvertType
 import com.ctre.phoenix.motorcontrol.can.TalonSRX as Talon
+import com.ctre.phoenix.motorcontrol.can.VictorSPX as Victor
 
 /**
  * Follows another TalonSRX, in the same direction.
  * @receiver the follower/slave controller
  * @param master the leader/master controller
  */
-operator fun Talon.plus(master: Talon) : Talon {
-    this.follow(master)
+infix fun Talon.follows(master: Talon) : Talon {
+    this.apply{
+        follow(master)
+        setInverted(InvertType.FollowMaster)
+    }
     return this
 }
 /**
@@ -17,8 +21,11 @@ operator fun Talon.plus(master: Talon) : Talon {
  * @receiver the follower/slave controller
  * @param master the leader/master controller
  */
-operator fun Talon.minus(master: Talon) : Talon {
-    this.follow(master)
+infix fun Talon.oppose(master: Talon) : Talon {
+    this.apply{
+        follow(master)
+        setInverted(InvertType.OpposeMaster)
+    }
     return this
 }
 
@@ -27,18 +34,23 @@ operator fun Talon.minus(master: Talon) : Talon {
  * @receiver the follower/slave controller
  * @param master the leader/master controller
  */
-operator fun Victor.plus(master: Victor) : Victor {
-    this.follow(master)
+infix fun Victor.follows(master: Victor) : Victor {
+    this.apply{
+        follow(master)
+        setInverted(InvertType.FollowMaster)
+    }
     return this
 }
-
 /**
  * Follows another VictorSPX, in the opposite direction.
  * @receiver the follower/slave controller
  * @param master the leader/master controller
  */
-operator fun Victor.minus(master: Victor) : Victor {
-    this.follow(master)
+infix fun Victor.opposes(master: Victor) : Victor {
+    this.apply{
+        follow(master)
+        setInverted(InvertType.OpposeMaster)
+    }
     return this
 }
 
@@ -47,17 +59,22 @@ operator fun Victor.minus(master: Victor) : Victor {
  * @receiver the follower/slave controller
  * @param master the leader/master controller
  */
-operator fun Victor.plus(master: Talon) : Victor {
-    this.follow(master)
+infix fun Victor.follows(master: Talon) : Victor {
+    this.apply{
+        follow(master)
+        setInverted(InvertType.FollowMaster)
+    }
     return this
 }
-
 /**
  * Follows another TalonSRX, in the opposite direction.
  * @receiver the follower/slave controller
  * @param master the leader/master controller
  */
-operator fun Victor.minus(master: Talon) : Victor {
-    this.follow(master)
+infix fun Victor.opposes(master: Talon) : Victor {
+    this.apply{
+        follow(master)
+        setInverted(InvertType.OpposeMaster)
+    }
     return this
 }

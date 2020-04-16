@@ -1,13 +1,15 @@
 package frc.robot.subsystems
-import com.ctre.phoenix.motorcontrol.ControlMode
+import lib.can.follows
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase
-import lib.plus
+
+import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.can.TalonSRX as Talon
 import com.ctre.phoenix.motorcontrol.can.VictorSPX as Victor
 
 object Climber : SubsystemBase(){
     private val climbMaster : Talon = Talon(climbMasterID)
-    private val climbSlave : Victor = Victor(climbSlaveID) + climbMaster
+    private val climbSlave : Victor = Victor(climbSlaveID) follows climbMaster
 
     var height : Int
         get() = climbMaster.selectedSensorPosition
@@ -17,7 +19,7 @@ object Climber : SubsystemBase(){
         set(value) = climbMaster.set(ControlMode.PercentOutput, value)
 
     operator fun unaryMinus() {
-        absPower = 0.0
+        climbMaster.neutralOutput()
     }
 
     fun resetEncoder(){

@@ -47,7 +47,7 @@ object PCM{
 }
 
 /**
- * https://pdocs.kauailabs.com/navx-mxp/installation/io-expansion/
+ * [link](https://pdocs.kauailabs.com/navx-mxp/installation/io-expansion/)
  */
 object navX : PortDevice{
     override val PWM: List<Int>

@@ -13,9 +13,8 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds
 import edu.wpi.first.wpilibj.trajectory.Trajectory
 import edu.wpi.first.wpilibj2.command.RamseteCommand
 import edu.wpi.first.wpilibj2.command.SubsystemBase
-import lib.not
-import lib.plus
-import lib.times
+import lib.can.*
+import lib.command.Invokable
 import lib.unaryMinus
 import java.util.function.BiConsumer
 import java.util.function.Supplier
@@ -25,20 +24,20 @@ import com.revrobotics.CANPIDController as PIDController
 import com.revrobotics.CANSparkMax as SparkMax
 
 
-object Drivetrain : SubsystemBase() {
+object Drivetrain : SubsystemBase(), Invokable {
     private val type = MotorType.kBrushless
 
     private val rightMaster : SparkMax = !SparkMax(rightMasterID, type)
-    private val rightSlave : SparkMax = SparkMax(rightSlaveID, type)
+    private val rightSlave : SparkMax = SparkMax(rightSlaveID, type) follows rightMaster
     private val leftMaster : SparkMax = SparkMax(leftMasterID, type)
-    private val leftSlave : SparkMax = SparkMax(leftSlaveID, type)
+    private val leftSlave : SparkMax = SparkMax(leftSlaveID, type) follows leftMaster
 
     object Drive : DifferentialDrive(leftMaster, rightMaster)
 
     private val gyro = Gyro(gyroPort)
 
-    private val rightController : PIDController = rightMaster.pidController + driveConfig
-    private val leftController : PIDController = leftMaster.pidController + driveConfig
+    private val rightController : PIDController = rightMaster.pidController configuredBy driveConfig
+    private val leftController : PIDController = leftMaster.pidController configuredBy driveConfig
 
     private val rightEncoder : Encoder = !rightMaster.getAlternateEncoder(
             AlternateEncoderType.kQuadrature, 2046) * driveConversions
@@ -104,7 +103,7 @@ object Drivetrain : SubsystemBase() {
     )
 
 
-    operator fun invoke(){
+    override operator fun invoke(){
         initOdometery()
         rightMaster.burnFlash()
         rightSlave.burnFlash()

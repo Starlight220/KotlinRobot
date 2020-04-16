@@ -91,7 +91,4 @@ object Limelight {
         }
     }
 
-    operator fun invoke(){
-
-    }
 }

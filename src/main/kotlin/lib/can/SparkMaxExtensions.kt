@@ -1,8 +1,9 @@
-package lib
+package lib.can
 
 import com.revrobotics.CANPIDController
 import com.revrobotics.CANSparkMax.ExternalFollower.kFollowerDisabled
 import com.revrobotics.ControlType
+import lib.PIDConfig
 import com.revrobotics.CANError as Error
 import com.revrobotics.CANSparkMax as SparkMax
 import edu.wpi.first.wpilibj.DriverStation as DS
@@ -37,7 +38,7 @@ operator fun Encoder.not() : Encoder{
  * @param config the config object
  * @receiver the PID controller that is configured
  */
-operator fun CANPIDController.plus(config : PIDConfig) : CANPIDController =
+infix fun CANPIDController.configuredBy(config : PIDConfig) : CANPIDController =
         config.applyREVController(this)
 
 /**
@@ -54,7 +55,7 @@ operator fun Error.not(){
  * @receiver the follower/slave controller
  * @param master the leader/master controller
  */
-operator fun SparkMax.plus(master: SparkMax) : SparkMax{
+infix fun SparkMax.follows(master: SparkMax) : SparkMax{
     !this.follow(master)
     return this
 }
@@ -64,7 +65,7 @@ operator fun SparkMax.plus(master: SparkMax) : SparkMax{
  * @receiver the follower/slave controller
  * @param master the leader/master controller
  */
-operator fun SparkMax.minus(master: SparkMax) : SparkMax{
+infix fun SparkMax.opposes(master: SparkMax) : SparkMax{
     !this.follow(master, true)
     return this
 }

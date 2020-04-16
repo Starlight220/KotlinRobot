@@ -3,15 +3,15 @@ import com.revrobotics.CANPIDController
 import com.revrobotics.CANSparkMaxLowLevel.MotorType
 import com.revrobotics.ControlType
 import edu.wpi.first.wpilibj2.command.SubsystemBase
-import lib.not
-import lib.plus
+import lib.can.configuredBy
+import lib.can.not
 import com.revrobotics.CANEncoder as Encoder
 import com.revrobotics.CANSparkMax as SparkMax
 
 object Shooter : SubsystemBase(){
     private val flywheel : SparkMax = SparkMax(flywheelID, MotorType.kBrushless)
     private val encoder : Encoder = flywheel.encoder
-    private val controller : CANPIDController = flywheel.pidController + flywheelConfig
+    private val controller : CANPIDController = flywheel.pidController configuredBy flywheelConfig
     private var lastVelRef : Double = 0.0
 
     var velocity : Double
