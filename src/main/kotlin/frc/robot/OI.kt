@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.Button
 import edu.wpi.first.wpilibj2.command.button.JoystickButton
 import frc.robot.commands.climb.AutoClimb
 import frc.robot.commands.climb.ManualClimb
-import frc.robot.commands.getShootProcess
+import frc.robot.commands.auto.getShootProcess
 import frc.robot.subsystems.heightTarget
 import java.util.function.Supplier
 
