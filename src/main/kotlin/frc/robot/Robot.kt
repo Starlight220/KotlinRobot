@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
 import edu.wpi.first.wpilibj2.command.RunCommand
 import frc.robot.commands.auto.goBackAndShoot
+import frc.robot.commands.auto.initTrajectories
 import frc.robot.commands.intake.IntakeDrive
 import frc.robot.commands.transport.TransportDrive
 import frc.robot.subsystems.*
@@ -43,6 +44,8 @@ object Robot : TimedRobot() {
         )
         Limelight
         subsystems.forEach { it() }
+
+        initTrajectories()
 //        autoCommand = initAutoCommand()
     }
 
