@@ -2,13 +2,13 @@ package frc.robot.subsystems
 import com.revrobotics.CANPIDController
 import com.revrobotics.CANSparkMaxLowLevel.MotorType
 import com.revrobotics.ControlType
-import edu.wpi.first.wpilibj2.command.SubsystemBase
-import lib.can.configuredBy
-import lib.can.not
+import lib.command.XSubsystem
+import lib.devices.can.configuredBy
+import lib.devices.can.not
 import com.revrobotics.CANEncoder as Encoder
 import com.revrobotics.CANSparkMax as SparkMax
 
-object Shooter : SubsystemBase(){
+object Shooter : XSubsystem(){
     private val flywheel : SparkMax = SparkMax(flywheelID, MotorType.kBrushless)
     private val encoder : Encoder = flywheel.encoder
     private val controller : CANPIDController = flywheel.pidController configuredBy flywheelConfig
@@ -21,7 +21,7 @@ object Shooter : SubsystemBase(){
             lastVelRef = value
         }
 
-    operator fun unaryMinus(){
+    override fun release(){
         flywheel.set(0.0)
     }
 
@@ -29,7 +29,7 @@ object Shooter : SubsystemBase(){
         return (lastVelRef - velocity) < velocityTolerance
     }
 
-    operator fun invoke(){
+    override fun init(){
         flywheel.burnFlash()
     }
 }

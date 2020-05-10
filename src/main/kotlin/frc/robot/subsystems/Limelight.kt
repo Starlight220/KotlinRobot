@@ -2,45 +2,89 @@ package frc.robot.subsystems
 
 import edu.wpi.first.networktables.NetworkTableInstance
 
+/**
+ * Limelight [docs](https://docs.limelightvision.io/en/latest/)
+ */
 object Limelight {
     private val table = NetworkTableInstance.getDefault().getTable("limelight")
     private fun getEntry(data: String) = table.getEntry(data)
 
+    /**
+     * Cam Mode : 0 Vision, 1 Driving
+     */
     var camMode: CamMode = CamMode.DRIVING
         set(mode) {
             field = mode
             getEntry("camMode").setNumber(mode.value)
         }
         get() = CamMode.fromNumber((getEntry("camMode").getNumber(1).toInt()))
+
+    /**
+     * LED mode : 0 (pipeline default), 1 (off), 2 (blink), 3 (on)
+     */
     var ledMode: LedMode = LedMode.DEFAULT
         set(mode) {
             field = mode
             getEntry("ledMode").setNumber(mode.value)
         }
         get() = LedMode.fromNumber((getEntry("ledMode").getNumber(1).toInt()))
-    var pipline: Int = 0
+
+    /**
+     * Pipeline number (between 0 and 10).
+     */
+    var pipeline: Int = 0
         set(value) {
             field = value
             getEntry("pipeline").setNumber(value)
         }
         get() = getEntry("pipeline").getNumber(0).toInt()
 
+    /**
+     * Horizontal Offset From Crosshair To Target
+     * (LL1: -27 degrees to 27 degrees |
+     * LL2: -29.8 to 29.8 degrees)
+     */
     val tx: Double
         get() = getEntry("tx").getDouble(0.0)
+
+    /**
+     * Whether the limelight has any valid targets (0 or 1)
+     */
     val tv: Boolean
-        get() = getEntry("tv").getBoolean(false)
+        get() = getEntry("tv").getDouble(0.0).toInt() == 1
+    /**
+     * Vertical Offset From Crosshair To Target
+     * (LL1: -20.5 degrees to 20.5 degrees | LL2: -24.85 to 24.85 degrees)
+     */
     val ty: Double
         get() = getEntry("ty").getDouble(0.0)
+    /**
+     * Target Area (0% of image to 100% of image)
+     */
     val ta: Double
         get() = getEntry("ta").getDouble(0.0)
+
+    /**
+     * Sidelength of shortest side of the fitted bounding box (pixels)
+     */
     val tshort: Double
         get() = getEntry("tshort").getDouble(0.0)
+    /**
+     * Sidelength of longest side of the fitted bounding box (pixels)
+     */
     val tlong: Double
         get() = getEntry("tlong").getDouble(0.0)
+    /**
+     * Horizontal sidelength of the rough bounding box (0 - 320 pixels)
+     */
     val thor: Double
         get() = getEntry("thor").getDouble(0.0)
+    /**
+     * Vertical sidelength of the rough bounding box (0 - 320 pixels)
+     */
     val tvert: Double
         get() = getEntry("tvert").getDouble(0.0)
+
     /*
            Values:
                Getters:
@@ -57,7 +101,6 @@ object Limelight {
                    Cam Mode : 0 Vision, 1 Driving
        */
 
-
 //    double tshort;
 //    double tlong;
 //    double thor;
@@ -66,7 +109,15 @@ object Limelight {
 
 
     enum class CamMode(val value: Int) {
-        VISION(0), DRIVING(1);
+        /**
+         * Processing pipeline is activated.
+         */
+        VISION(0),
+
+        /**
+         * Processing pipeline is off.
+         */
+        DRIVING(1);
 
         companion object {
             fun fromNumber(number: Int): CamMode = when (number) {
@@ -78,7 +129,23 @@ object Limelight {
     }
 
     enum class LedMode(val value: Int) {
-        DEFAULT(0), OFF(1), BLINK(2), ON(3);
+        /**
+         * The pipeline default
+         */
+        DEFAULT(0),
+
+        /**
+         * Force off
+         */
+        OFF(1),
+        /**
+         * Force blink
+         */
+        BLINK(2),
+        /**
+         * Force on
+         */
+        ON(3);
 
         companion object {
             fun fromNumber(number: Int): LedMode = when (number) {
@@ -91,4 +158,6 @@ object Limelight {
         }
     }
 
+
+    object Pipelines : Map<String, Int> by mutableMapOf(){}
 }

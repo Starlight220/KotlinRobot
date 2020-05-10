@@ -2,12 +2,12 @@ package frc.robot.subsystems
 
 import com.ctre.phoenix.motorcontrol.ControlMode
 import edu.wpi.first.wpilibj2.command.SubsystemBase
+import lib.command.XSubsystem
 import com.ctre.phoenix.motorcontrol.can.VictorSPX as Victor
 
-object Transporter : SubsystemBase(){
+object Transporter : XSubsystem(){
     private val flicker : Victor = Victor(flickerID)
     private val tower : Victor = Victor(towerID)
-
 
     private var towerSpeed : Double = 0.0
         set(value) = tower.set(ControlMode.PercentOutput, value)
@@ -16,7 +16,7 @@ object Transporter : SubsystemBase(){
 
     var mode : TransportMode = TransportMode.OFF
         set(value){
-            if(field != value){
+            if(field != value) {
                 field = value
                 value.apply()
             }
@@ -33,12 +33,12 @@ object Transporter : SubsystemBase(){
         }
     }
 
-    operator fun unaryMinus(){
+    override fun release(){
         towerSpeed = 0.0
         flickerSpeed = 0.0
     }
 
-    operator fun invoke(){
+    override fun init(){
 
     }
 }

@@ -1,55 +1,66 @@
+@file:Suppress("JoinDeclarationAndAssignment")
+
 package frc.robot.subsystems
 
 import com.revrobotics.AlternateEncoderType
 import com.revrobotics.CANSparkMax.IdleMode
-import com.revrobotics.CANSparkMaxLowLevel.MotorType
+import com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless as mt
 import com.revrobotics.ControlType
-import edu.wpi.first.wpilibj.controller.RamseteController
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
-import edu.wpi.first.wpilibj.geometry.Rotation2d
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds
 import edu.wpi.first.wpilibj.trajectory.Trajectory
-import edu.wpi.first.wpilibj2.command.RamseteCommand
-import edu.wpi.first.wpilibj2.command.SubsystemBase
-import lib.can.*
-import lib.command.Invokable
-import lib.unaryMinus
-import java.util.function.BiConsumer
-import java.util.function.Supplier
+import edu.wpi.first.wpilibj2.command.Command
+import lib.util.Cache
+import lib.command.XSubsystem
+import lib.devices.can.*
+import lib.devices.navx.*
+import lib.trajectory.RamseteConfig
+import kotlin.reflect.KProperty
 import com.kauailabs.navx.frc.AHRS as Gyro
 import com.revrobotics.CANEncoder as Encoder
 import com.revrobotics.CANPIDController as PIDController
 import com.revrobotics.CANSparkMax as SparkMax
 
+object Drivetrain : XSubsystem() {
+    private val rightMaster: SparkMax
+    private val rightSlave: SparkMax
+    private val leftMaster: SparkMax
+    private val leftSlave: SparkMax
 
-object Drivetrain : SubsystemBase(), Invokable {
-    private val type = MotorType.kBrushless
+    private val rightEncoder: Encoder
+    private val leftEncoder: Encoder
 
-    private val rightMaster : SparkMax = !SparkMax(rightMasterID, type)
-    private val rightSlave : SparkMax = SparkMax(rightSlaveID, type) follows rightMaster
-    private val leftMaster : SparkMax = SparkMax(leftMasterID, type)
-    private val leftSlave : SparkMax = SparkMax(leftSlaveID, type) follows leftMaster
+    private val gyro: Gyro
 
-    object Drive : DifferentialDrive(leftMaster, rightMaster)
+    private val rightController: PIDController
+    private val leftController: PIDController
 
-    private val gyro = Gyro(gyroPort)
+    private val drive: DifferentialDrive
 
-    private val rightController : PIDController = rightMaster.pidController configuredBy driveConfig
-    private val leftController : PIDController = leftMaster.pidController configuredBy driveConfig
+    private lateinit var odometry: DifferentialDriveOdometry
 
-    private val rightEncoder : Encoder = !rightMaster.getAlternateEncoder(
-            AlternateEncoderType.kQuadrature, 2046) * driveConversions
-    private val leftEncoder : Encoder =leftMaster.getAlternateEncoder(
-            AlternateEncoderType.kQuadrature, 2046) * driveConversions
+    init {
+        rightMaster = !SparkMax(rightMasterID, mt)
+        leftMaster = SparkMax(leftMasterID, mt)
+        rightSlave = SparkMax(rightSlaveID, mt) follows rightMaster
+        leftSlave = SparkMax(leftSlaveID, mt) follows leftMaster
 
-    private val kinematics : DifferentialDriveKinematics = DifferentialDriveKinematics(trackWidth)
-    private lateinit var odometry : DifferentialDriveOdometry
+        gyro = Gyro(gyroPort)
 
-    var idleMode : IdleMode = IdleMode.kCoast
-        set(value){
-            if(value != field){
+        rightEncoder = !rightMaster.getAlternateEncoder(
+                AlternateEncoderType.kQuadrature, 2046) * driveConversions
+        leftEncoder = leftMaster.getAlternateEncoder(
+                AlternateEncoderType.kQuadrature, 2046) * driveConversions
+
+        rightController = rightMaster.pidController configuredBy driveConfig
+        leftController = leftMaster.pidController configuredBy driveConfig
+
+        drive = DifferentialDrive(leftMaster, rightMaster)
+    }
+
+    var idleMode: IdleMode = IdleMode.kCoast
+        set(value) {
+            if (value != field) {
                 field = value
                 rightMaster.idleMode = value
                 leftMaster.idleMode = value
@@ -59,55 +70,50 @@ object Drivetrain : SubsystemBase(), Invokable {
         }
         get() = rightMaster.idleMode
 
-    val heading : Double
+    val angle: Double
         get() = gyro.angle
-    val leftDistance : Double
+    val leftDistance: Double
         get() = leftEncoder.position
-    val rightDistance : Double
+    val rightDistance: Double
         get() = rightEncoder.position
 
-    fun resetEncoders(){
+    fun initOdometry() {
         -rightEncoder
         -leftEncoder
+        -gyro
+        odometry = DifferentialDriveOdometry(gyro.getRotation())
     }
 
-    fun resetGyro() = -gyro
-
-    fun initOdometery(){
-        resetEncoders()
-        resetGyro()
-        odometry = DifferentialDriveOdometry(Rotation2d.fromDegrees(heading))
-    }
-    operator fun unaryMinus(){
-        Drive.tankDrive(0.0, 0.0)
-    }
-
-    override fun periodic() {
-        odometry.update(Rotation2d.fromDegrees(heading), leftDistance, rightDistance)
-    }
-
-
-    fun getRamsete(trajectory: Trajectory): RamseteCommand = RamseteCommand(
-            trajectory,
-            Supplier{ odometry.poseMeters},
-            RamseteController(),
-            driveFeedforward,
-            kinematics,
-            Supplier{DifferentialDriveWheelSpeeds(leftEncoder.velocity, rightEncoder.velocity)},
-            driveConfig.getWPIController(),
-            driveConfig.getWPIController(),
-            BiConsumer {left : Double, right : Double ->
-                leftController.setReference(left, ControlType.kVoltage)
-                rightController.setReference(right, ControlType.kVoltage)},
-            this
-    )
-
-
-    override operator fun invoke(){
-        initOdometery()
+    override fun init() {
+        drive
+        initOdometry()
         rightMaster.burnFlash()
         rightSlave.burnFlash()
         leftMaster.burnFlash()
         leftSlave.burnFlash()
     }
+
+    override fun release() {
+        drive.stopMotor()
+    }
+
+    override fun periodic() {
+        odometry.update(gyro.getRotation(), leftDistance, rightDistance)
+    }
+
+    fun arcadeDrive(xSpeed: Double, zRotation: Double) = drive.arcadeDrive(xSpeed, zRotation)
+    fun tankDrive(left: Double, right: Double) = drive.tankDrive(left, right)
+
+    fun getRamsete(trajectory: Trajectory): Command =
+            Cache("rc") {
+                RamseteConfig(
+                        poseSource = odometry::getPoseMeters,
+                        trackWidth = trackWidth,
+                        speedConsumer = { left, right ->
+                            leftController.setReference(left, ControlType.kVelocity)
+                            rightController.setReference(right, ControlType.kVelocity)
+                        },
+                        drivetrain = this)
+            }
+                    .getRamsete(trajectory)
 }

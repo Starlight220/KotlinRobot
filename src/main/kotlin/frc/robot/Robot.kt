@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
 import edu.wpi.first.wpilibj2.command.RunCommand
-import edu.wpi.first.wpilibj2.command.Subsystem
-import frc.robot.commands.goBackAndShoot
+import frc.robot.commands.auto.goBackAndShoot
 import frc.robot.commands.intake.IntakeDrive
 import frc.robot.commands.transport.TransportDrive
 import frc.robot.subsystems.*
-import lib.command.Invokable
+import lib.command.XSubsystem
+import lib.test.TestVector
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,7 +26,7 @@ import lib.command.Invokable
  */
 object Robot : TimedRobot() {
     private lateinit var autoCommand : Command
-    lateinit var subsystems : Set<Subsystem>
+    lateinit var subsystems : Set<XSubsystem>
 
 
     /**
@@ -42,13 +42,13 @@ object Robot : TimedRobot() {
             Climber
         )
         Limelight
-        subsystems.forEach { if(it is Invokable) it() }
+        subsystems.forEach { it() }
 //        autoCommand = initAutoCommand()
     }
 
     private fun initDefaultCommands() {
         Drivetrain.defaultCommand = RunCommand(Runnable {
-            Drivetrain.Drive.arcadeDrive(xSpeedAxis, zRotateAxis)
+            Drivetrain.arcadeDrive(xSpeedAxis, zRotateAxis)
         }, Drivetrain)
         Intake.defaultCommand = IntakeDrive()
         Transporter.defaultCommand = TransportDrive()
@@ -85,8 +85,8 @@ object Robot : TimedRobot() {
      * SendableChooser make sure to add them to the chooser code above as well.
      */
     override fun autonomousInit() {
-        Drivetrain.initOdometery()
-//        autoCommand.schedule()
+        Drivetrain.initOdometry()
+        autoCommand.schedule()
     }
 
     /**
@@ -105,9 +105,11 @@ object Robot : TimedRobot() {
      */
     override fun teleopPeriodic() {}
 
-    /**
-     * This function is called periodically during test mode.
-     */
-    override fun testPeriodic() {}
+
+    override fun testInit() {
+        TestVector.TestThread()
+    }
+
+
 }
 

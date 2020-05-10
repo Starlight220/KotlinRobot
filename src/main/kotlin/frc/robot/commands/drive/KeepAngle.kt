@@ -31,7 +31,7 @@ class KeepAngle(
     }
 
     override fun execute() {
-        Drivetrain.Drive.arcadeDrive(xSpeed(), controller.calculate(errorSupplier()))
+        Drivetrain.arcadeDrive(xSpeed(), controller.calculate(errorSupplier()))
     }
 
     var count = 0

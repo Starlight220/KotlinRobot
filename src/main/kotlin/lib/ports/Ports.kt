@@ -31,7 +31,6 @@ object roboRIO : PortDevice{
 }
 
 
-
 object CAN{
     private val list = (1..62).toList()
 
