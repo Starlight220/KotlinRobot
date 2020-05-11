@@ -17,7 +17,7 @@ class PneumaticsControlModule private constructor(private val canID : Int = 0) {
 
     companion object{
         private val instances : MutableMap<Int, PCM> = mutableMapOf()
-        operator fun invoke(canID : Int = 0) : PCM = instances.getOrElse(canID){ PCM(canID) }
+        operator fun invoke(canID : Int = 0) : PCM = instances.getOrPut(canID){ PCM(canID) }
     }
 
     fun DoubleSolenoid(fwd : Int, rev : Int) : DoubleSolenoid = DoubleSolenoid(canID, fwd, rev)

@@ -24,6 +24,10 @@ open class Cache {
 
 class SingletonCache<T> {
     private var array = arrayOfNulls<Any>(1)
+
+    /**
+     * @throws ClassCastException if there is a
+     */
     operator fun invoke(data: () -> T): T {
         if (array[0] == null) {
             array[0] = data()

@@ -23,7 +23,7 @@ class KeepAngle(
 
     init {
         addRequirements(Drivetrain)
-        controller = driveAngleConfig.getWPIController()
+        controller = driveAngleConfig.wpiController
     }
 
     override fun initialize() {

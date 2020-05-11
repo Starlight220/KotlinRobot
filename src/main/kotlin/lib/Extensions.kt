@@ -1,10 +1,9 @@
 package lib
 
-import com.kauailabs.navx.frc.AHRS
 import com.revrobotics.CANPIDController
 import edu.wpi.first.wpilibj.controller.PIDController
-import lib.can.not
-import lib.pipeline.Bounds
+import lib.devices.can.not
+import lib.util.pipeline.Bounds
 
 
 data class PIDConfig(
@@ -13,9 +12,8 @@ data class PIDConfig(
         val d : Double = 0.0,
         val aff: Double = 0.0
 ){
-    fun getWPIController(): PIDController {
-        return PIDController(p, i, d)
-    }
+    val wpiController: PIDController
+        get() = PIDController(p, i, d)
 
     fun applyREVController(controller : CANPIDController): CANPIDController{
         !controller.setP(p)
@@ -40,10 +38,5 @@ data class PIDConfig(
 //
 //}
 val motorInput = Bounds(-1.0, 1.0)
-
-/**
- * Resets the gyro angle.
- */
-operator fun AHRS.unaryMinus() = this.reset()
 
 
