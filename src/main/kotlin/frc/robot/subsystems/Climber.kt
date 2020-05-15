@@ -1,9 +1,9 @@
 package frc.robot.subsystems
 
 import com.ctre.phoenix.motorcontrol.ControlMode
-import lib.command.XSubsystem
-import lib.devices.can.follows
-import lib.test.withName
+import frc.excalibur.lib.devices.can.follows
+import frc.excalibur.lib.test.withName
+import frc.excalibur.lib.command.XSubsystem
 import com.ctre.phoenix.motorcontrol.can.TalonSRX as Talon
 import com.ctre.phoenix.motorcontrol.can.VictorSPX as Victor
 
@@ -18,7 +18,7 @@ object Climber : XSubsystem() {
     var absPower : Double = 0.0
         set(value) = climbMaster.set(ControlMode.PercentOutput, value)
 
-    override fun release() = climbMaster.neutralOutput()
+    override fun release(): Unit = climbMaster.neutralOutput()
 
     override fun init(){
         climbMaster.selectedSensorPosition = 0

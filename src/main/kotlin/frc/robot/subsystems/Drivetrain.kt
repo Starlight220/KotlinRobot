@@ -1,36 +1,34 @@
-@file:Suppress("JoinDeclarationAndAssignment")
-
 package frc.robot.subsystems
 
 import com.revrobotics.AlternateEncoderType
 import com.revrobotics.CANSparkMax.IdleMode
-import com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless as mt
 import com.revrobotics.ControlType
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry
 import edu.wpi.first.wpilibj.trajectory.Trajectory
 import edu.wpi.first.wpilibj2.command.Command
-import lib.util.Cache
-import lib.command.XSubsystem
-import lib.devices.can.*
-import lib.devices.navx.*
-import lib.trajectory.RamseteConfig
-import kotlin.reflect.KProperty
+import frc.excalibur.lib.util.Cache
+import frc.excalibur.lib.command.XSubsystem
+import frc.excalibur.lib.devices.can.*
+import frc.excalibur.lib.devices.navx.*
+import frc.excalibur.lib.trajectory.RamseteConfig
+import lib.devices.can.configuredBy
 import com.kauailabs.navx.frc.AHRS as Gyro
 import com.revrobotics.CANEncoder as Encoder
 import com.revrobotics.CANPIDController as PIDController
 import com.revrobotics.CANSparkMax as SparkMax
+import com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless as mt
 
 object Drivetrain : XSubsystem() {
-    private val rightMaster: SparkMax
-    private val rightSlave: SparkMax
-    private val leftMaster: SparkMax
-    private val leftSlave: SparkMax
+    private val rightMaster: SparkMax = !SparkMax(rightMasterID, mt)
+    private val rightSlave: SparkMax = SparkMax(rightSlaveID, mt) follows rightMaster
+    private val leftMaster: SparkMax = SparkMax(leftMasterID, mt)
+    private val leftSlave: SparkMax = SparkMax(leftSlaveID, mt) follows leftMaster
 
     private val rightEncoder: Encoder
     private val leftEncoder: Encoder
 
-    private val gyro: Gyro
+    private val gyro: Gyro = Gyro(gyroPort)
 
     private val rightController: PIDController
     private val leftController: PIDController
@@ -40,13 +38,6 @@ object Drivetrain : XSubsystem() {
     private lateinit var odometry: DifferentialDriveOdometry
 
     init {
-        rightMaster = !SparkMax(rightMasterID, mt)
-        leftMaster = SparkMax(leftMasterID, mt)
-        rightSlave = SparkMax(rightSlaveID, mt) follows rightMaster
-        leftSlave = SparkMax(leftSlaveID, mt) follows leftMaster
-
-        gyro = Gyro(gyroPort)
-
         rightEncoder = !rightMaster.getAlternateEncoder(
                 AlternateEncoderType.kQuadrature, 2046) * driveConversions
         leftEncoder = leftMaster.getAlternateEncoder(

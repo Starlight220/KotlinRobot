@@ -59,6 +59,14 @@ dependencies {
     // upon debugging
     simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    implementation "frc.excalibur.lib:core:0.0.0"
+    implementation "frc.excalibur.lib:command:0.0.0"
+    implementation "frc.excalibur.lib:ctre:0.0.0"
+    implementation "frc.excalibur.lib:kauai:0.0.0"
+    implementation "frc.excalibur.lib:rev:0.0.0"
+    implementation "frc.excalibur.lib:limelight:0.0.0"
+
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
@@ -70,11 +78,14 @@ jar {
 }
 repositories {
     mavenCentral()
+    maven {url "https://jitpack.io"}
+    mavenLocal()
+
 }
 compileKotlin {
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+//        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
     }
 }
 compileTestKotlin {

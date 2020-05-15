@@ -1,8 +1,7 @@
 package frc.robot.subsystems
 
 import com.ctre.phoenix.motorcontrol.ControlMode
-import edu.wpi.first.wpilibj2.command.SubsystemBase
-import lib.command.XSubsystem
+import frc.excalibur.lib.command.XSubsystem
 import com.ctre.phoenix.motorcontrol.can.VictorSPX as Victor
 
 object Transporter : XSubsystem(){

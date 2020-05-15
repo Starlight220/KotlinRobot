@@ -1,15 +1,15 @@
 package frc.robot.subsystems
 import com.revrobotics.CANPIDController
-import com.revrobotics.CANSparkMaxLowLevel.MotorType
+import com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless
 import com.revrobotics.ControlType
-import lib.command.XSubsystem
+import frc.excalibur.lib.command.XSubsystem
+import frc.excalibur.lib.devices.can.*
 import lib.devices.can.configuredBy
-import lib.devices.can.not
 import com.revrobotics.CANEncoder as Encoder
 import com.revrobotics.CANSparkMax as SparkMax
 
 object Shooter : XSubsystem(){
-    private val flywheel : SparkMax = SparkMax(flywheelID, MotorType.kBrushless)
+    private val flywheel : SparkMax = SparkMax(flywheelID, kBrushless)
     private val encoder : Encoder = flywheel.encoder
     private val controller : CANPIDController = flywheel.pidController configuredBy flywheelConfig
     private var lastVelRef : Double = 0.0

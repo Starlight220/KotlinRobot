@@ -6,7 +6,7 @@ import frc.robot.intakeClosed
 import frc.robot.intakeOpen
 import frc.robot.subsystems.Intake
 
-class IntakeDrive() : CommandBase(){
+class IntakeDrive : CommandBase(){
     init{
         addRequirements(Intake)
     }

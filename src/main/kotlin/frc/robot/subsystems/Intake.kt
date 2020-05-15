@@ -3,8 +3,8 @@ package frc.robot.subsystems
 import com.ctre.phoenix.motorcontrol.ControlMode
 import edu.wpi.first.wpilibj.DoubleSolenoid
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value
-import lib.command.XSubsystem
-import lib.devices.can.PCM
+import frc.excalibur.lib.devices.can.*
+import frc.excalibur.lib.command.XSubsystem
 import com.ctre.phoenix.motorcontrol.can.VictorSPX as Victor
 
 object Intake : XSubsystem() {

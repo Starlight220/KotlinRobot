@@ -20,7 +20,7 @@ class AutoClimb(private val height : Int, private val followUp : Boolean = false
         else manualClimb.execute()
     }
 
-    var count = 0
+    private var count: Int = 0
     private fun isAutoFinished(){
         if(StrictMath.abs(height - Climber.height) < tolerance) count++ else count = 0
         isAutoFinished = count >= bucketSize

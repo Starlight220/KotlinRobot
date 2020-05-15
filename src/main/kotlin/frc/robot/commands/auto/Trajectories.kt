@@ -1,6 +1,6 @@
 package frc.robot.commands.auto
 
-import lib.trajectory.TrajectorySource.*
+import frc.excalibur.lib.trajectory.TrajectorySource.*
 
 fun initTrajectories() {
     Trajectories.logAll {

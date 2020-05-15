@@ -8,7 +8,7 @@ import frc.robot.intakeOpen
 import frc.robot.subsystems.Intake
 import frc.robot.subsystems.Transporter
 
-class TransportDrive() : CommandBase(){
+class TransportDrive : CommandBase(){
     init{
         addRequirements(Transporter)
     }

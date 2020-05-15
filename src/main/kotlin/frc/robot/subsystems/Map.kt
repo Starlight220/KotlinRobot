@@ -1,22 +1,23 @@
 package frc.robot.subsystems
-import lib.ports.CAN
-import lib.ports.PCM
-import lib.ports.navX
+import edu.wpi.first.wpilibj.SPI
+import frc.excalibur.lib.ports.CAN
+import frc.excalibur.lib.ports.PCM
+import frc.excalibur.lib.ports.navX
 
-val rightMasterID = CAN[10]
-val rightSlaveID = CAN[11]
-val leftMasterID = CAN[12]
-val leftSlaveID = CAN[13]
-val gyroPort = navX.SPI
+val rightMasterID: Int = CAN[10]
+val rightSlaveID: Int = CAN[11]
+val leftMasterID: Int = CAN[12]
+val leftSlaveID: Int = CAN[13]
+val gyroPort: SPI.Port = navX.SPI
 
-val flywheelID = CAN[20]
+val flywheelID: Int = CAN[20]
 
-val intakeID = CAN[30]
-val intakePistonClosed = PCM[0]
-val intakePistonOpen = PCM[1]
+val intakeID: Int = CAN[30]
+val intakePistonClosed: Int = PCM[0]
+val intakePistonOpen: Int = PCM[1]
 
-val climbMasterID = CAN[40]
-val climbSlaveID = CAN[41]
+val climbMasterID: Int = CAN[40]
+val climbSlaveID: Int = CAN[41]
 
-val flickerID = CAN[50]
-val towerID = CAN[50]
+val flickerID: Int = CAN[50]
+val towerID: Int = CAN[50]

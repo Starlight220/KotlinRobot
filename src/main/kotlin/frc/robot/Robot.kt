@@ -15,8 +15,9 @@ import frc.robot.commands.auto.initTrajectories
 import frc.robot.commands.intake.IntakeDrive
 import frc.robot.commands.transport.TransportDrive
 import frc.robot.subsystems.*
-import lib.command.XSubsystem
-import lib.test.TestVector
+import frc.excalibur.lib.command.XSubsystem
+import frc.excalibur.lib.test.TestVector
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,7 +28,9 @@ import lib.test.TestVector
  */
 object Robot : TimedRobot() {
     private lateinit var autoCommand : Command
-    lateinit var subsystems : Set<XSubsystem>
+    var subsystems : Set<XSubsystem>
+        get() = XSubsystem.subsystems
+        set(value) { XSubsystem.subsystems.addAll(value)}
 
 
     /**
@@ -58,7 +61,7 @@ object Robot : TimedRobot() {
 
     }
 
-    private fun initAutoCommand() : Command{
+    private fun initAutoCommand() : Command {
         return goBackAndShoot()
     }
 
@@ -115,4 +118,6 @@ object Robot : TimedRobot() {
 
 
 }
+
+
 
