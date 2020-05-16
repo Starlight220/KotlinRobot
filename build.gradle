@@ -60,12 +60,16 @@ dependencies {
     simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
-    implementation "frc.excalibur.lib:core:0.0.0"
-    implementation "frc.excalibur.lib:command:0.0.0"
-    implementation "frc.excalibur.lib:ctre:0.0.0"
-    implementation "frc.excalibur.lib:kauai:0.0.0"
-    implementation "frc.excalibur.lib:rev:0.0.0"
-    implementation "frc.excalibur.lib:limelight:0.0.0"
+    def repoName = "frc.excalibur.lib"
+    def groupName = "com.github.Starlight220.XcaLib"
+    def commit = "d9bdbe95d5"
+    def version = "1.0.0"
+    implementation repoName + ":core:" + version
+    implementation repoName + ":command:" + version
+    implementation repoName + ":ctre:" + version
+    implementation repoName + ":kauai:" + version
+    implementation groupName + ":rev:" + commit
+    implementation groupName + ":limelight:" + commit
 
 }
 

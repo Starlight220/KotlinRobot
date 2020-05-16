@@ -4,7 +4,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless
 import com.revrobotics.ControlType
 import frc.excalibur.lib.command.XSubsystem
 import frc.excalibur.lib.devices.can.*
-import lib.devices.can.configuredBy
 import com.revrobotics.CANEncoder as Encoder
 import com.revrobotics.CANSparkMax as SparkMax
 

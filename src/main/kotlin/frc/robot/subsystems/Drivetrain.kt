@@ -12,7 +12,6 @@ import frc.excalibur.lib.command.XSubsystem
 import frc.excalibur.lib.devices.can.*
 import frc.excalibur.lib.devices.navx.*
 import frc.excalibur.lib.trajectory.RamseteConfig
-import lib.devices.can.configuredBy
 import com.kauailabs.navx.frc.AHRS as Gyro
 import com.revrobotics.CANEncoder as Encoder
 import com.revrobotics.CANPIDController as PIDController

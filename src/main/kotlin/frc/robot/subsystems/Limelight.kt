@@ -1,5 +1,5 @@
 package frc.robot.subsystems
 
-import frc.excalibur.lib.devices.can.limelight.LimelightCamera
+import frc.excalibur.lib.devices.limelight.LimelightCamera
 
 object Limelight : LimelightCamera()

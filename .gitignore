@@ -164,3 +164,7 @@ imgui.ini
 .idea/workspace.xml
 /stale/
 src/stale/*
+*.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/misc.xml
+.idea/jarRepositories.xml
