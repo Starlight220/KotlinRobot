@@ -8,18 +8,18 @@ import frc.robot.subsystems.driveAngleConfig
 import java.lang.StrictMath.abs
 
 class KeepAngle(
-        private val errorSupplier : () -> Double,
-        private val tolerance : Double = 0.0,
-        private val bucketSize : Int = 5,
-        private val xSpeed : () -> Double = {0.0},
-        private val endMode: IdleMode = IdleMode.kBrake
+    private val errorSupplier: () -> Double,
+    private val tolerance: Double = 0.0,
+    private val bucketSize: Int = 5,
+    private val xSpeed: () -> Double = { 0.0 },
+    private val endMode: IdleMode = IdleMode.kBrake
 ) : CommandBase() {
 
-    companion object{
-        fun isOnAngle(error : Double, tolerance: Double) : Boolean = abs(error) < tolerance
+    companion object {
+        fun isOnAngle(error: Double, tolerance: Double): Boolean = abs(error) < tolerance
     }
 
-    private val controller : PIDController
+    private val controller: PIDController
 
     init {
         addRequirements(Drivetrain)
@@ -36,7 +36,7 @@ class KeepAngle(
 
     var count = 0
     override fun isFinished(): Boolean {
-        if(isOnAngle(errorSupplier(), tolerance)) count++ else count = 0
+        if (isOnAngle(errorSupplier(), tolerance)) count++ else count = 0
         return count >= bucketSize
     }
 

@@ -160,7 +160,7 @@ imgui.ini
 
 # End of https://www.gitignore.io/api/c++,java,linux,macos,gradle,windows,visualstudiocode
 /.kotlin-for-frc/
-/.idea/
+.idea/
 .idea/workspace.xml
 /stale/
 src/stale/*
@@ -168,3 +168,4 @@ src/stale/*
 .idea/inspectionProfiles/Project_Default.xml
 .idea/misc.xml
 .idea/jarRepositories.xml
+/.idea/

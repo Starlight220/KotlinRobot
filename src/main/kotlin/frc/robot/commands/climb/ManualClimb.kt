@@ -5,7 +5,7 @@ import frc.robot.climbPower
 import frc.robot.subsystems.Climber
 import frc.robot.subsystems.Shooter
 
-class ManualClimb : CommandBase(){
+class ManualClimb : CommandBase() {
     init {
         addRequirements(Shooter)
     }
@@ -17,7 +17,6 @@ class ManualClimb : CommandBase(){
     }
 
     override fun isFinished(): Boolean = false
-
 
     override fun end(interrupted: Boolean) = -Climber
 }

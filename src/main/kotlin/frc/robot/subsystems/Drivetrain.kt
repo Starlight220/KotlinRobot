@@ -1,22 +1,23 @@
 package frc.robot.subsystems
 
+import com.kauailabs.navx.frc.AHRS as Gyro
 import com.revrobotics.AlternateEncoderType
+import com.revrobotics.CANEncoder as Encoder
+import com.revrobotics.CANPIDController as PIDController
+import com.revrobotics.CANSparkMax as SparkMax
 import com.revrobotics.CANSparkMax.IdleMode
+import com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless as mt
 import com.revrobotics.ControlType
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry
 import edu.wpi.first.wpilibj.trajectory.Trajectory
 import edu.wpi.first.wpilibj2.command.Command
-import frc.excalibur.lib.util.Cache
 import frc.excalibur.lib.command.XSubsystem
 import frc.excalibur.lib.devices.can.*
-import frc.excalibur.lib.devices.navx.*
+import frc.excalibur.lib.devices.navx.getRotation
+import frc.excalibur.lib.devices.navx.unaryMinus
 import frc.excalibur.lib.trajectory.RamseteConfig
-import com.kauailabs.navx.frc.AHRS as Gyro
-import com.revrobotics.CANEncoder as Encoder
-import com.revrobotics.CANPIDController as PIDController
-import com.revrobotics.CANSparkMax as SparkMax
-import com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless as mt
+import frc.excalibur.lib.util.Cache
 
 object Drivetrain : XSubsystem() {
     private val rightMaster: SparkMax = !SparkMax(rightMasterID, mt)
@@ -46,6 +47,13 @@ object Drivetrain : XSubsystem() {
         leftController = leftMaster.pidController configuredBy driveConfig
 
         drive = DifferentialDrive(leftMaster, rightMaster)
+
+        initOdometry()
+
+        rightMaster.burnFlash()
+        rightSlave.burnFlash()
+        leftMaster.burnFlash()
+        leftSlave.burnFlash()
     }
 
     var idleMode: IdleMode = IdleMode.kCoast
@@ -72,15 +80,6 @@ object Drivetrain : XSubsystem() {
         -leftEncoder
         -gyro
         odometry = DifferentialDriveOdometry(gyro.getRotation())
-    }
-
-    override fun init() {
-        drive
-        initOdometry()
-        rightMaster.burnFlash()
-        rightSlave.burnFlash()
-        leftMaster.burnFlash()
-        leftSlave.burnFlash()
     }
 
     override fun release() {

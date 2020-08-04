@@ -16,13 +16,13 @@ import java.util.function.Supplier
  */
 object Main {
 
-  /**
-   * Main initialization function. Do not perform any initialization here.
-   * If you change your main robot class, change the parameter type.
-   */
-  @JvmStatic
-  fun main(args : Array<String>) {
-    val robotSupplier : Supplier<Robot> = Supplier {Robot }
-    RobotBase.startRobot(robotSupplier)
-  }
+    /**
+     * Main initialization function. Do not perform any initialization here.
+     * If you change your main robot class, change the parameter type.
+     */
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val robotSupplier: Supplier<Robot> = Supplier { Robot }
+        RobotBase.startRobot(robotSupplier)
+    }
 }

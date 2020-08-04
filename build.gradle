@@ -2,6 +2,7 @@ plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2020.3.2"
     id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+    id "com.diffplug.spotless" version "5.1.0"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -60,16 +61,23 @@ dependencies {
     simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
-    def repoName = "frc.excalibur.lib"
-    def groupName = "com.github.Starlight220.XcaLib"
-    def commit = "d9bdbe95d5"
-    def version = "1.0.0"
-    implementation repoName + ":core:" + version
-    implementation repoName + ":command:" + version
-    implementation repoName + ":ctre:" + version
-    implementation repoName + ":kauai:" + version
-    implementation groupName + ":rev:" + commit
-    implementation groupName + ":limelight:" + commit
+    boolean isLocal = false;
+    if (isLocal) {
+        implementation 'frc.excalibur.lib:command:1.0.2'
+        implementation 'frc.excalibur.lib:core:1.0.2'
+        implementation 'frc.excalibur.lib:ctre:1.0.2'
+        implementation 'frc.excalibur.lib:kauai:1.0.2'
+        implementation 'frc.excalibur.lib:limelight:1.0.2'
+        implementation 'frc.excalibur.lib:rev:1.0.2'
+    } else {
+        implementation 'com.github.Starlight220.XcaLib:command:1.0.2'
+        implementation 'com.github.Starlight220.XcaLib:core:1.0.2'
+        implementation 'com.github.Starlight220.XcaLib:ctre:1.0.2'
+        implementation 'com.github.Starlight220.XcaLib:kauai:1.0.2'
+        implementation 'com.github.Starlight220.XcaLib:limelight:1.0.2'
+        implementation 'com.github.Starlight220.XcaLib:rev:1.0.2'
+    }
+
 
 }
 
@@ -82,18 +90,26 @@ jar {
 }
 repositories {
     mavenCentral()
-    maven {url "https://jitpack.io"}
+    maven { url "https://jitpack.io" }
     mavenLocal()
 
 }
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
 //        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
     }
 }
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
+    }
+}
+spotless {
+    kotlin {
+        ktlint().userData(['indentation': '2',
+                           'insert_final_newline': 'true',
+                           'disabled_rules': 'no-wildcard-imports'])
+//        licenseHeaderFile "$rootDir/LicenseHeader.txt"
     }
 }

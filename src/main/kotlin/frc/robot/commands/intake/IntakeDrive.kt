@@ -6,8 +6,8 @@ import frc.robot.intakeClosed
 import frc.robot.intakeOpen
 import frc.robot.subsystems.Intake
 
-class IntakeDrive : CommandBase(){
-    init{
+class IntakeDrive : CommandBase() {
+    init {
         addRequirements(Intake)
     }
 
@@ -19,7 +19,6 @@ class IntakeDrive : CommandBase(){
     }
 
     override fun isFinished(): Boolean = false
-
 
     override fun end(interrupted: Boolean) {}
 }

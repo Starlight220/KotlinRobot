@@ -10,14 +10,12 @@ import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
 import edu.wpi.first.wpilibj2.command.RunCommand
+import frc.excalibur.lib.test.TestVector
+import frc.robot.commands.auto.Trajectories
 import frc.robot.commands.auto.goBackAndShoot
-import frc.robot.commands.auto.initTrajectories
 import frc.robot.commands.intake.IntakeDrive
 import frc.robot.commands.transport.TransportDrive
 import frc.robot.subsystems.*
-import frc.excalibur.lib.command.XSubsystem
-import frc.excalibur.lib.test.TestVector
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,28 +25,23 @@ import frc.excalibur.lib.test.TestVector
  * project.
  */
 object Robot : TimedRobot() {
-    private lateinit var autoCommand : Command
-    var subsystems : Set<XSubsystem>
-        get() = XSubsystem.subsystems
-        set(value) { XSubsystem.subsystems.addAll(value)}
-
+    private lateinit var autoCommand: Command
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     override fun robotInit() {
-        subsystems = setOf(
-            Drivetrain,
-            Intake,
-            Shooter,
-            Transporter,
-            Climber
-        )
-        Limelight
-        subsystems.forEach { it() }
+        Drivetrain
+        Intake
+        Shooter
+        Transporter
+        Climber
 
-        initTrajectories()
+        Limelight
+
+        Trajectories
+
 //        autoCommand = initAutoCommand()
     }
 
@@ -58,10 +51,9 @@ object Robot : TimedRobot() {
         }, Drivetrain)
         Intake.defaultCommand = IntakeDrive()
         Transporter.defaultCommand = TransportDrive()
-
     }
 
-    private fun initAutoCommand() : Command {
+    private fun initAutoCommand(): Command {
         return goBackAndShoot()
     }
 
@@ -99,7 +91,6 @@ object Robot : TimedRobot() {
      * This function is called periodically during autonomous.
      */
     override fun autonomousPeriodic() {
-
     }
 
     override fun teleopInit() {
@@ -111,13 +102,7 @@ object Robot : TimedRobot() {
      */
     override fun teleopPeriodic() {}
 
-
     override fun testInit() {
         TestVector.TestThread()
     }
-
-
 }
-
-
-
