@@ -60,22 +60,7 @@ dependencies {
     // upon debugging
     simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)
 
-    boolean isLocal = false;
-    if (isLocal) {
-        implementation 'frc.excalibur.lib:command:1.0.2'
-        implementation 'frc.excalibur.lib:core:1.0.2'
-        implementation 'frc.excalibur.lib:ctre:1.0.2'
-        implementation 'frc.excalibur.lib:kauai:1.0.2'
-        implementation 'frc.excalibur.lib:limelight:1.0.2'
-        implementation 'frc.excalibur.lib:rev:1.0.2'
-    } else {
-        implementation 'com.github.Starlight220.XcaLib:command:1.0.2'
-        implementation 'com.github.Starlight220.XcaLib:core:1.0.2'
-        implementation 'com.github.Starlight220.XcaLib:ctre:1.0.2'
-        implementation 'com.github.Starlight220.XcaLib:kauai:1.0.2'
-        implementation 'com.github.Starlight220.XcaLib:limelight:1.0.2'
-        implementation 'com.github.Starlight220.XcaLib:rev:1.0.2'
-    }
+    implementation 'com.github.Starlight220:XcaLib:ec900f5'
 
 
 }
