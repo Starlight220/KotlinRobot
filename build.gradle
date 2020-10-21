@@ -4,7 +4,8 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.0'
     id "com.diffplug.spotless" version "5.1.0"
 }
-
+wpi.maven.useDevelopment = true
+wpi.wpilibVersion = '2020.+'
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 

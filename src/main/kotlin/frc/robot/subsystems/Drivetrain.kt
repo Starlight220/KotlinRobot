@@ -1,15 +1,14 @@
 package frc.robot.subsystems
 
-import com.kauailabs.navx.frc.AHRS as Gyro
 import com.revrobotics.AlternateEncoderType
-import com.revrobotics.CANEncoder as Encoder
-import com.revrobotics.CANPIDController as PIDController
-import com.revrobotics.CANSparkMax as SparkMax
 import com.revrobotics.CANSparkMax.IdleMode
-import com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless as mt
 import com.revrobotics.ControlType
+import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
+import edu.wpi.first.wpilibj.geometry.Pose2d
+import edu.wpi.first.wpilibj.geometry.Rotation2d
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry
+import edu.wpi.first.wpilibj.simulation.Field2d
 import edu.wpi.first.wpilibj.trajectory.Trajectory
 import edu.wpi.first.wpilibj2.command.Command
 import frc.excalibur.lib.command.XSubsystem
@@ -18,6 +17,14 @@ import frc.excalibur.lib.devices.navx.getRotation
 import frc.excalibur.lib.devices.navx.unaryMinus
 import frc.excalibur.lib.trajectory.RamseteConfig
 import frc.excalibur.lib.util.Cache
+import frc.robot.component1
+import frc.robot.component2
+import frc.robot.component3
+import com.kauailabs.navx.frc.AHRS as Gyro
+import com.revrobotics.CANEncoder as Encoder
+import com.revrobotics.CANPIDController as PIDController
+import com.revrobotics.CANSparkMax as SparkMax
+import com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless as mt
 
 object Drivetrain : XSubsystem() {
     private val rightMaster: SparkMax = !SparkMax(rightMasterID, mt)
@@ -105,4 +112,15 @@ object Drivetrain : XSubsystem() {
                         drivetrain = this)
             }
                     .getRamsete(trajectory)
+
+    private val field = Field2d().apply {
+        robotPose = Pose2d(0.0,0.0, Rotation2d.fromDegrees(0.0))
+    }
+    override fun simulationPeriodic() {
+        val (x, y, rot) = field.robotPose
+        DriverStation.getInstance().apply {
+            field.robotPose = Pose2d(x + getStickAxis(1, 0),
+            y + getStickAxis(1, 1), Rotation2d.fromDegrees(0.0))
+        }
+    }
 }

@@ -6,16 +6,20 @@
 /*----------------------------------------------------------------------------*/
 package frc.robot
 
+import edu.wpi.first.wpilibj.Filesystem
 import edu.wpi.first.wpilibj.TimedRobot
+import edu.wpi.first.wpilibj.simulation.GenericHIDSim
+import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
 import edu.wpi.first.wpilibj2.command.RunCommand
 import frc.excalibur.lib.test.TestVector
 import frc.robot.commands.auto.Trajectories
-import frc.robot.commands.auto.goBackAndShoot
+//import frc.robot.commands.auto.goBackAndShoot
 import frc.robot.commands.intake.IntakeDrive
 import frc.robot.commands.transport.TransportDrive
 import frc.robot.subsystems.*
+import java.nio.file.Path
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -42,11 +46,11 @@ object Robot : TimedRobot() {
 
         Trajectories
 
-//        autoCommand = initAutoCommand()
+        autoCommand = initAutoCommand()
     }
 
     private fun initDefaultCommands() {
-        Drivetrain.defaultCommand = RunCommand(Runnable {
+        Drivetrain.defaultCommand = RunCommand({
             Drivetrain.arcadeDrive(xSpeedAxis, zRotateAxis)
         }, Drivetrain)
         Intake.defaultCommand = IntakeDrive()
@@ -54,7 +58,12 @@ object Robot : TimedRobot() {
     }
 
     private fun initAutoCommand(): Command {
-        return goBackAndShoot()
+//        return goBackAndShoot()
+        return Drivetrain.getRamsete(
+                TrajectoryUtil.fromPathweaverJson(
+                        Filesystem.getDeployDirectory()
+                                .toPath()
+                                .resolve(Path.of("output", "fwd.wpilib.json"))))
     }
 
     /**
